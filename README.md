@@ -2,9 +2,13 @@
 This is the repository for the application written in our workshop for Spring 2017. Use this code for reference if you didn't make it to our meeting and are trying to catch up.
 
 Files:
+
 [activity_main]: The XML layout for the MainActivity
+
 [other_activity]: The XML layout for the activity that MainActivity navigates to.
+
 [MainActivity]: The Java code that creates the MainActivity. It also provides functionality to the buttons and other views implemented in activity_main.xml
+
 [OtherActivity]: The Java code that creates the activity that MainActivity navigates to. 
 
 Any questions about the app can be posted to our [slack] page in the *#android* channel. 
