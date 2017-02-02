@@ -28,7 +28,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                String input = editText.getText().toString();
+
                 Intent intent = new Intent(getApplicationContext(), OtherActivity.class);
+                intent.putExtra("editText", input);
                 startActivity(intent);
             }
         });
