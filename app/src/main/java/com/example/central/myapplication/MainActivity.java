@@ -8,6 +8,17 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+/**
+ * From Android's documentation:
+ *
+ * An activity is a single, focused thing that the user can do. Almost all activities interact
+ * with the user, so the Activity class takes care of creating a window for you in which you
+ * can place your UI with setContentView(View).
+ *
+ * Here, we are using AppCompatActivity to create our activity. AppCompatActivity is
+ * extended from the Activity class, which means it retains the same functionality of
+ * the Activity class, but implements a default ActionBar.
+ */
 public class MainActivity extends AppCompatActivity {
 
     TextView textView;
@@ -16,13 +27,34 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // remember to call the super method first
         super.onCreate(savedInstanceState);
+
+        // specify the layout that this Activity will display
         setContentView(R.layout.activity_main);
 
+        /**
+         * The layout activity_main currently holds 3 views. Here, we are casing these views
+         * as objects in order to programmatically manipulate them.
+         *
+         * findViewById() - this takes in an 'int ID' of a specified view. We get these
+         *                  view ID's from 'R.id', where 'R' stands for resources and
+         *                  '.id' stands for the ID subsection of those resources.
+         *
+         * Unfortunately, findViewById() only returns a generic View object, so it cannot
+         * be immediately assigned to something like textView. As you can see, textView is
+         * of the Class TextView, which is a subclass of View. Therefore, we will need to
+         * case what findViewById() returns with (TextView) like so:
+         */
         textView = (TextView) findViewById(R.id.mytextview);
         editText = (EditText) findViewById(R.id.editText);
         button = (Button) findViewById(R.id.button);
 
+        /**
+         * setOnClickListener() will provide 'button' with an object OnClickListener.
+         * Here, we are passing setOnClickListener() a new instance of OnClickListener
+         * and overriding the onClick method as well.
+         */
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override
