@@ -1,5 +1,6 @@
 package com.example.central.myapplication;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -55,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
          * Here, we are passing setOnClickListener() a new instance of OnClickListener
          * and overriding the onClick method as well.
          */
+        final MainActivity mainActivity = this;
+
         button.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -62,10 +65,26 @@ public class MainActivity extends AppCompatActivity {
 
                 String input = editText.getText().toString();
 
-                Intent intent = new Intent(getApplicationContext(), OtherActivity.class);
-                intent.putExtra("editText", input);
-                startActivity(intent);
+                // TODO: create APIRequest object, then execute it
             }
         });
+    }
+
+    protected Context getContext() {
+        return getApplicationContext();
+    }
+
+    /**
+     * This method will be called by our APIRequest when it has finished
+     *
+     * @param searchQuery - the text that was entered into the editText, we
+     *                      pass this to OtherActivity with Intent
+     * @param json - the JSON data that will get returned from the server
+     *             - WARNING: json will be null if APIRequest couldn't connect
+     */
+    protected void onFinish(String searchQuery, String json) {
+
+        // TODO: store search query and json in the intent, launch OtherActivity
+
     }
 }

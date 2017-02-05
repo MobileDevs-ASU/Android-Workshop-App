@@ -1,6 +1,5 @@
 package com.example.central.myapplication;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -25,6 +24,7 @@ public class OtherActivity extends AppCompatActivity {
     TextView textView;
     ListView listView;
 
+    ArrayAdapter arrayAdapter;
     ArrayList<String> eventList;
 
     @Override
@@ -34,25 +34,22 @@ public class OtherActivity extends AppCompatActivity {
         setContentView(R.layout.other_activity);
 
         Bundle bundle = getIntent().getExtras();
-        String input = bundle.getString("editText");
+        String query = bundle.getString("query");
+        // TODO: get json String from bundle here
 
         textView = (TextView) findViewById(R.id.textView2);
-        textView.setText(input);
+        textView.setText(query);
 
         listView = (ListView) findViewById(R.id.mylistview);
-
-        ArrayList<String> arrayList = new ArrayList<String>();
-        arrayList.add("a");
-        arrayList.add("b");
-        arrayList.add("c");
-        arrayList.add("d");
-
-        ArrayAdapter arrayAdapter = new ArrayAdapter(this, R.layout.listitem_layout, arrayList);
-
-        listView.setAdapter(arrayAdapter);
-
+        // TODO: use json String to create eventList, then adapt eventList to listView
     }
 
+    /**
+     * This is going to parse the JSON string to get event information.
+     * We are looking for three elements in every
+     *
+     * @param jsonString - the JSON data that will get returned from the server
+     */
     private void createEventList(String jsonString) {
         eventList = new ArrayList<String>();
 
@@ -89,22 +86,9 @@ public class OtherActivity extends AppCompatActivity {
                 }
 
             }
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
-    }
-
-    protected Context getContext() {
-        return getApplicationContext();
-    }
-
-    /**
-     * This method will be called by our APIRequest when it has finished
-     *
-     * @param searchQuery
-     * @param json - the JSON data that will get returned from the server
-     */
-    protected void onFinish(String searchQuery, String json) {
-
     }
 }

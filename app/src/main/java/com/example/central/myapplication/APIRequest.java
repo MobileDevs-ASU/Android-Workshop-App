@@ -24,25 +24,26 @@ public class APIRequest extends AsyncTask<String, Integer, String> {
 
     // API values (API will only grab values from Arizona, to reduce information overload)
     private static final String TM_ROOT_URL = "https://app.ticketmaster.com/discovery/v2/events.json?";
-    private static final String STATE_CODE = "&stateCode=AZ";
+    //private static final String STATE_CODE = "&stateCode=AZ";
     private static String apiKey;
 
-    private OtherActivity resultClass;
+    private MainActivity resultClass;
     private String searchQuery;
 
     private ProgressDialog dialog;
 
-    public APIRequest(OtherActivity resultClass, String searchQuery) {
+    public APIRequest(MainActivity resultClass, String searchQuery) {
         this.resultClass = resultClass;
         this.searchQuery = searchQuery.trim();
     }
 
     @Override
     protected void onPreExecute() {
+
         Context context = resultClass.getContext();
         apiKey = context.getResources().getString(R.string.api_key);
 
-        dialog = new ProgressDialog(context);
+        dialog = new ProgressDialog(resultClass);
         dialog.setMessage("Searching Events");
         dialog.setCancelable(false);
         dialog.setInverseBackgroundForced(false); // this was deprecated as of SDK 23
@@ -54,7 +55,7 @@ public class APIRequest extends AsyncTask<String, Integer, String> {
      * @param params - we do not use this
      *
      * @return jsonObject - holds search results from TicketMaster API
-     * @return null if results were not returned
+     *                    - null if results were not returned
      */
     @Override
     protected String doInBackground(String... params) {
@@ -81,7 +82,7 @@ public class APIRequest extends AsyncTask<String, Integer, String> {
             // format the search query to be used in a URL
             encodedSearch = URLEncoder.encode(searchQuery, "UTF-8");
 
-            urlString = TM_ROOT_URL +"apikey="+ apiKey +"&keyword="+ encodedSearch + STATE_CODE;
+            urlString = TM_ROOT_URL +"apikey="+ apiKey +"&keyword="+ encodedSearch;
             url = new URL(urlString);
             connection = (HttpURLConnection) url.openConnection();
             connection.connect();
@@ -124,11 +125,11 @@ public class APIRequest extends AsyncTask<String, Integer, String> {
 
     @Override
     protected void onPostExecute(String json) {
+
         if (dialog != null && dialog.isShowing()) {
             dialog.dismiss();
         }
 
         resultClass.onFinish(searchQuery, json);
     }
-
 }
