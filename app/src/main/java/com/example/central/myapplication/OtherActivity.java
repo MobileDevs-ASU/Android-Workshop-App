@@ -20,6 +20,7 @@ import java.util.ArrayList;
 public class OtherActivity extends AppCompatActivity {
 
     public final String TAG = "OtherActivity";
+    public static String json;
 
     TextView textView;
     ListView listView;
@@ -42,6 +43,10 @@ public class OtherActivity extends AppCompatActivity {
 
         listView = (ListView) findViewById(R.id.mylistview);
         // TODO: use json String to create eventList, then adapt eventList to listView
+        createEventList(json);
+        ArrayAdapter adapter = new ArrayAdapter(this, R.layout.listitem_layout, eventList);
+        listView.setAdapter(adapter);
+
     }
 
     /**

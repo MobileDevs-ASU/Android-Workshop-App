@@ -66,6 +66,8 @@ public class MainActivity extends AppCompatActivity {
                 String input = editText.getText().toString();
 
                 // TODO: create APIRequest object, then execute it
+                APIRequest request = new APIRequest(mainActivity, input);
+                request.execute();
             }
         });
     }
@@ -84,7 +86,14 @@ public class MainActivity extends AppCompatActivity {
      */
     protected void onFinish(String searchQuery, String json) {
 
-        // TODO: store search query and json in the intent, launch OtherActivity
 
+        if (json != null) {
+            Intent intent = new Intent(MainActivity.this, OtherActivity.class);
+            intent.putExtra("query", searchQuery);
+
+            OtherActivity.json = json;
+
+            startActivity(intent);
+        }
     }
 }
